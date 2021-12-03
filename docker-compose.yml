@@ -1,0 +1,14 @@
+version: '3.2'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: include
+      POSTGRES_PASSWORD: include-password
+      POSTGRES_DB: include_users
+    volumes:
+      - ./scripts:/docker-entrypoint-initdb.d

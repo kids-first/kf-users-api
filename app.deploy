@@ -8,7 +8,7 @@ deploy {
     docker_image_type = "alpine"
     internal_app = "false"
     create_default_iam_role = "0"
-    entrypoint_command = "node dist/src/index.js"
+    entrypoint_command = "npm run start:prd"
     deploy_scripts_version = "master"
     quick_deploy = "true"
     external_config_repo = "false"

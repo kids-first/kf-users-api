@@ -11,5 +11,6 @@ FROM node:16.13-alpine AS prod-image
 WORKDIR /app
 COPY --from=build-image ./app/dist ./dist
 COPY package* ./
+COPY migrations ./migrations
 RUN npm ci --production
-CMD [ "node", "./dist/src/index.js" ]
+CMD [ "npm", "run", "start:prd" ]

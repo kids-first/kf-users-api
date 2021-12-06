@@ -1,3 +1,4 @@
+-- Up Migration
 CREATE TABLE users (
     id SERIAL NOT NULL,
     keycloak_id VARCHAR(255) NOT NULL,
@@ -8,5 +9,5 @@ CREATE TABLE users (
 );
 ALTER TABLE users ADD PRIMARY KEY (id);
 
-CREATE UNIQUE INDEX CONCURRENTLY users_keycloak_id ON users (keycloak_id);
-ALTER TABLE users ADD CONSTRAINT unique_keycloak_id UNIQUE USING INDEX users_keycloak_id;
+-- Down Migration
+DROP TABLE users;

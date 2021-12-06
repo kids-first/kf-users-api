@@ -10,5 +10,3 @@ services:
       POSTGRES_USER: include
       POSTGRES_PASSWORD: include-password
       POSTGRES_DB: include_users
-    volumes:
-      - ./scripts:/docker-entrypoint-initdb.d

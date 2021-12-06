@@ -10,7 +10,9 @@
         "clean": "rm -rf ./dist/* ",
         "lint": "eslint . --ext .ts",
         "lint:fix": "eslint . --ext .ts --fix",
+        "migrate": "node-pg-migrate",
         "start": "node ./dist/src/index.js",
+        "start:prd": "npm run migrate up; node ./dist/src/index.js",
         "test": "jest --silent"
     },
     "dependencies": {
@@ -19,6 +21,7 @@
         "express": "^4.17.1",
         "http-status-codes": "^2.1.4",
         "keycloak-connect": "^15.0.2",
+        "node-pg-migrate": "^6.0.0",
         "pg": "^8.7.1"
     },
     "devDependencies": {

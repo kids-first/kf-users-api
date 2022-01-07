@@ -1,5 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import { getReasonPhrase, StatusCodes } from 'http-status-codes';
+import { DatabaseError } from 'pg';
+
+enum DATABASE_ERROR_CODES {
+    UNIQUE_VIOLATION = '23505',
+}
 
 export class UserNotFoundError extends Error {
     constructor(keycloak_id: string) {
@@ -10,7 +15,11 @@ export class UserNotFoundError extends Error {
 }
 
 export const globalErrorHandler = (err: unknown, _req: Request, res: Response, _next: NextFunction): void => {
-    if (err instanceof UserNotFoundError) {
+    if (err instanceof DatabaseError && err.code == DATABASE_ERROR_CODES.UNIQUE_VIOLATION) {
+        res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
+            error: 'A resource with the same id already exists.',
+        });
+    } else if (err instanceof UserNotFoundError) {
         res.status(StatusCodes.NOT_FOUND).json({
             error: getReasonPhrase(StatusCodes.NOT_FOUND),
         });

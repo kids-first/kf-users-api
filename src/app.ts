@@ -40,9 +40,8 @@ export default (keycloak: Keycloak): Express => {
 
     app.post('/user', keycloak.protect(), async (req, res, next) => {
         try {
-            const { consent_date, understand_disclaimer } = req.body;
             const keycloak_id = req['kauth']?.grant?.access_token?.content?.sub;
-            const result = await createUser(keycloak_id, consent_date, understand_disclaimer);
+            const result = await createUser(keycloak_id, req.body);
             res.status(StatusCodes.CREATED).send(result);
         } catch (e) {
             next(e);
@@ -52,8 +51,7 @@ export default (keycloak: Keycloak): Express => {
     app.put('/user', keycloak.protect(), async (req, res, next) => {
         try {
             const keycloak_id = req['kauth']?.grant?.access_token?.content?.sub;
-            const { consent_date, understand_disclaimer } = req.body;
-            const result = await updateUser(keycloak_id, consent_date, understand_disclaimer);
+            const result = await updateUser(keycloak_id, req.body);
             res.status(StatusCodes.OK).send(result);
         } catch (e) {
             next(e);

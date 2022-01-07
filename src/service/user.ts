@@ -12,15 +12,11 @@ export const getUser = async (id: string): Promise<TUser> => {
     return rows[0];
 };
 
-export const createUser = async (
-    keycloak_id: string,
-    consent_date: string,
-    understand_disclaimer: boolean,
-): Promise<TUser> => {
+export const createUser = async (keycloak_id: string, body: TUserInsert): Promise<TUser> => {
     const { rows } = await insertQuery<TUserInsert, TUser>(TABLE_NAME, {
+        ...body,
         keycloak_id: keycloak_id,
-        consent_date: new Date(consent_date),
-        understand_disclaimer: understand_disclaimer,
+        consent_date: new Date(body.consent_date),
         creation_date: new Date(),
         updated_date: new Date(),
     });
@@ -28,14 +24,10 @@ export const createUser = async (
     return rows[0];
 };
 
-export const updateUser = async (
-    keycloak_id: string,
-    consent_date: string,
-    understand_disclaimer: boolean,
-): Promise<TUser> => {
+export const updateUser = async (keycloak_id: string, body: TUserUpdate): Promise<TUser> => {
     const { rows } = await updateQuery<TUserUpdate, TUser>(TABLE_NAME, 'keycloak_id', keycloak_id, {
-        consent_date: new Date(consent_date),
-        understand_disclaimer: understand_disclaimer,
+        ...body,
+        consent_date: new Date(body.consent_date),
         updated_date: new Date(),
     });
 

@@ -16,7 +16,6 @@ export const createUser = async (keycloak_id: string, body: TUserInsert): Promis
     const { rows } = await insertQuery<TUserInsert, TUser>(TABLE_NAME, {
         ...body,
         keycloak_id: keycloak_id,
-        consent_date: new Date(body.consent_date),
         creation_date: new Date(),
         updated_date: new Date(),
     });
@@ -27,7 +26,6 @@ export const createUser = async (keycloak_id: string, body: TUserInsert): Promis
 export const updateUser = async (keycloak_id: string, body: TUserUpdate): Promise<TUser> => {
     const { rows } = await updateQuery<TUserUpdate, TUser>(TABLE_NAME, 'keycloak_id', keycloak_id, {
         ...body,
-        consent_date: new Date(body.consent_date),
         updated_date: new Date(),
     });
 

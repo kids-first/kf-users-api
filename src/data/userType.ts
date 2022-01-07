@@ -1,4 +1,4 @@
-export type User = {
+export type TUser = {
     id: number;
     keycloak_id: string;
     creation_date: Date;
@@ -6,3 +6,6 @@ export type User = {
     consent_date?: Date;
     understand_disclaimer: boolean;
 };
+
+export type TUserInsert = Omit<TUser, 'id'>;
+export type TUserUpdate = Partial<Omit<TUser, 'id' | 'keycloak_id'>>;

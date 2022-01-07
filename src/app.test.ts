@@ -4,7 +4,7 @@ import request from 'supertest';
 
 import { getToken, publicKey } from '../test/authTestUtils';
 import buildApp from './app';
-import { User } from './data/userType';
+import { TUser } from './data/userType';
 import { createUser, deleteUser, getUser, updateUser } from './service/user';
 
 jest.mock('./service/user');
@@ -67,7 +67,7 @@ describe('Express app', () => {
         });
 
         it('should return 200 with the user returned by service if Authorization header is valid', async () => {
-            const expectedUser: User = {
+            const expectedUser: TUser = {
                 id: 123,
                 keycloak_id: 'keycloak_id',
                 understand_disclaimer: true,
@@ -133,7 +133,7 @@ describe('Express app', () => {
         });
 
         it('should return 200 with the user returned by service if Authorization header is valid', async () => {
-            const expectedUser: User = {
+            const expectedUser: TUser = {
                 id: 123,
                 keycloak_id: 'keycloak_id',
                 understand_disclaimer: postUserBody.understand_disclaimer,
@@ -203,7 +203,7 @@ describe('Express app', () => {
         });
 
         it('should return 200 with the user returned by service if Authorization header is valid', async () => {
-            const expectedUser: User = {
+            const expectedUser: TUser = {
                 id: 123,
                 keycloak_id: 'keycloak_id',
                 understand_disclaimer: putUserBody.understand_disclaimer,

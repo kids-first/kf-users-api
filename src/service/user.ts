@@ -1,8 +1,10 @@
-import { query } from '../data';
-import { User } from '../data/userType';
+import { query, insertQuery, updateQuery } from '../data';
+import { TUser, TUserInsert, TUserUpdate } from '../data/userType';
 import { UserNotFoundError } from '../errors';
 
-export const getUser = async (id: string): Promise<User> => {
+const TABLE_NAME = 'users';
+
+export const getUser = async (id: string): Promise<TUser> => {
     const { rows } = await query('SELECT * FROM users WHERE keycloak_id = $1', [id]);
     if (rows.length === 0) {
         throw new UserNotFoundError(id);
@@ -14,11 +16,15 @@ export const createUser = async (
     keycloak_id: string,
     consent_date: string,
     understand_disclaimer: boolean,
-): Promise<User> => {
-    const { rows } = await query(
-        'INSERT INTO users (keycloak_id, consent_date, understand_disclaimer, creation_date, updated_date) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-        [keycloak_id, new Date(consent_date), understand_disclaimer, new Date(), new Date()],
-    );
+): Promise<TUser> => {
+    const { rows } = await insertQuery<TUserInsert, TUser>(TABLE_NAME, {
+        keycloak_id: keycloak_id,
+        consent_date: new Date(consent_date),
+        understand_disclaimer: understand_disclaimer,
+        creation_date: new Date(),
+        updated_date: new Date(),
+    });
+
     return rows[0];
 };
 
@@ -26,11 +32,13 @@ export const updateUser = async (
     keycloak_id: string,
     consent_date: string,
     understand_disclaimer: boolean,
-): Promise<User> => {
-    const { rows } = await query(
-        'UPDATE users SET consent_date = $1, understand_disclaimer = $2, updated_date = $3 WHERE keycloak_id = $4 RETURNING *',
-        [new Date(consent_date), understand_disclaimer, new Date(), keycloak_id],
-    );
+): Promise<TUser> => {
+    const { rows } = await updateQuery<TUserUpdate, TUser>(TABLE_NAME, 'keycloak_id', keycloak_id, {
+        consent_date: new Date(consent_date),
+        understand_disclaimer: understand_disclaimer,
+        updated_date: new Date(),
+    });
+
     return rows[0];
 };
 

@@ -5,7 +5,8 @@ ALTER TABLE users
     ADD COLUMN occupation TEXT[],
     ADD COLUMN affiliation TEXT,
     ADD COLUMN research_area TEXT,
-    ADD COLUMN portal_usages TEXT[]
+    ADD COLUMN portal_usages TEXT[],
+    ADD COLUMN accepted_terms BOOLEAN NOT NULL DEFAULT false
 
 -- Down Migration
 ALTER TABLE users 
@@ -14,4 +15,5 @@ ALTER TABLE users
     DROP COLUMN occupation,
     DROP COLUMN affiliation,
     DROP COLUMN research_area,
-    DROP COLUMN portal_usages
+    DROP COLUMN portal_usages,
+    DROP COLUMN accepted_terms

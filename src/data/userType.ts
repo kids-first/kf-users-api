@@ -12,6 +12,7 @@ export type TUser = {
     creation_date: Date;
     updated_date: Date;
     consent_date?: Date;
+    accepted_terms: boolean;
     understand_disclaimer: boolean;
 };
 

@@ -23,7 +23,9 @@
 
 - Run DB migration: `npm run migrate up`
 
-- Start server: `npm run start`
+- Start server: `npm run dev`
+
+- Any changes to the api will automatically refresh it.
 
 ## Need to update database schema
 

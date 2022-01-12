@@ -1,5 +1,7 @@
 -- Up Migration
 ALTER TABLE users 
+    ADD COLUMN first_name VARCHAR,
+    ADD COLUMN last_name VARCHAR,
     ADD COLUMN era_commons_id VARCHAR(255),
     ADD COLUMN nih_ned_id VARCHAR(255),
     ADD COLUMN roles TEXT[],
@@ -13,6 +15,8 @@ ALTER TABLE users
 
 -- Down Migration
 ALTER TABLE users 
+    DROP COLUMN first_name,
+    DROP COLUMN last_name,
     DROP COLUMN era_commons_id,
     DROP COLUMN nih_ned_id,
     DROP COLUMN roles,

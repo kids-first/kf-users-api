@@ -16,6 +16,7 @@ export type TUser = {
     consent_date?: Date;
     accepted_terms: boolean;
     understand_disclaimer: boolean;
+    completed_registration: boolean;
 };
 
 export type TUserInsert = Omit<TUser, 'id'>;

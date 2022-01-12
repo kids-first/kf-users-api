@@ -6,7 +6,7 @@ import { Keycloak } from 'keycloak-connect';
 import { version } from '../package.json';
 import { keycloakURL } from './env';
 import { globalErrorHandler, globalErrorLogger } from './errors';
-import { createUser, deleteUser, getUser, updateUser } from './service/user';
+import { completeRegistration, createUser, deleteUser, getUser, updateUser } from './service/user';
 
 export default (keycloak: Keycloak): Express => {
     const app = express();
@@ -52,6 +52,16 @@ export default (keycloak: Keycloak): Express => {
         try {
             const keycloak_id = req['kauth']?.grant?.access_token?.content?.sub;
             const result = await updateUser(keycloak_id, req.body);
+            res.status(StatusCodes.OK).send(result);
+        } catch (e) {
+            next(e);
+        }
+    });
+
+    app.put('/user/complete-registration', keycloak.protect(), async (req, res, next) => {
+        try {
+            const keycloak_id = req['kauth']?.grant?.access_token?.content?.sub;
+            const result = await completeRegistration(keycloak_id, req.body);
             res.status(StatusCodes.OK).send(result);
         } catch (e) {
             next(e);

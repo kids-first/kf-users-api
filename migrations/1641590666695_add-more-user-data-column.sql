@@ -8,7 +8,8 @@ ALTER TABLE users
     ADD COLUMN external_individual_fullname TEXT,
     ADD COLUMN external_individual_email TEXT,
     ADD COLUMN portal_usages TEXT[],
-    ADD COLUMN accepted_terms BOOLEAN NOT NULL DEFAULT false
+    ADD COLUMN accepted_terms BOOLEAN NOT NULL DEFAULT false,
+    ADD COLUMN completed_registration BOOLEAN NOT NULL DEFAULT false
 
 -- Down Migration
 ALTER TABLE users 
@@ -20,4 +21,5 @@ ALTER TABLE users
     DROP COLUMN external_individual_fullname,
     DROP COLUMN external_individual_email,
     DROP COLUMN portal_usages,
-    DROP COLUMN accepted_terms
+    DROP COLUMN accepted_terms,
+    DROP COLUMN completed_registration

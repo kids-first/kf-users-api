@@ -5,10 +5,12 @@ export type TUser = {
     last_name?: string;
     era_commons_id?: string;
     nih_ned_id?: string;
-    occupation?: string[];
+    external_individual_fullname?: string;
+    external_individual_email?: string;
+    roles?: string[];
     affiliation?: string;
-    research_area?: string;
     portal_usages?: string[];
+    research_area?: string;
     creation_date: Date;
     updated_date: Date;
     consent_date?: Date;

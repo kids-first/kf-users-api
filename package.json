@@ -4,6 +4,10 @@
     "description": "RESTful API to manage and retrieve Include users",
     "main": "index.ts",
     "license": "ISC",
+    "engines": {
+        "node": ">=16.13.0",
+        "npm": ">=8.1.0"
+    },
     "scripts": {
         "build": "npm run clean; tsc ",
         "build:run": "npm run build; npm start",

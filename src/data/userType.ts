@@ -17,6 +17,7 @@ export type TUser = {
     accepted_terms: boolean;
     understand_disclaimer: boolean;
     completed_registration: boolean;
+    config: object;
 };
 
 export type TUserInsert = Omit<TUser, 'id'>;

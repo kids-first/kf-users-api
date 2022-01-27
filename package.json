@@ -31,7 +31,6 @@
         "keycloak-connect": "^15.0.2",
         "node-pg-migrate": "^6.0.0",
         "pg": "^8.7.1",
-        "pg-format": "^1.0.4",
         "sequelize": "^6.14.1"
     },
     "devDependencies": {

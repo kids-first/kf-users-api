@@ -4,7 +4,7 @@ CREATE TABLE saved_filters (
     keycloak_id VARCHAR(255) NOT NULL,
     title TEXT,
     tag TEXT,
-    content JSONB NOT NULL DEFAULT '{}'::jsonb,
+    queries JSONB[] NOT NULL DEFAULT array[]::JSONB[],
     creation_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     updated_date TIMESTAMP WITHOUT TIME ZONE NOT NULL
 );

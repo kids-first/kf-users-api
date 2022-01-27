@@ -6,7 +6,7 @@ interface ISavedFilterAttributes {
     keycloak_id: string;
     title: string;
     tag: string;
-    content: any;
+    queries: any[];
     creation_date: Date;
     updated_date: Date;
 }
@@ -19,7 +19,7 @@ class SavedFilterModel extends Model<ISavedFilterAttributes, ISavedFilterInput> 
     public keycloak_id!: string;
     public title!: string;
     public tag!: string;
-    public content!: any;
+    public queries!: any[];
     public creation_date!: Date;
     public updated_date!: Date;
 }
@@ -38,10 +38,10 @@ SavedFilterModel.init(
         },
         title: DataTypes.TEXT,
         tag: DataTypes.TEXT,
-        content: {
-            type: DataTypes.JSONB,
+        queries: {
+            type: DataTypes.ARRAY(DataTypes.JSONB),
             allowNull: false,
-            defaultValue: {},
+            defaultValue: [],
         },
         creation_date: {
             type: DataTypes.DATE,

@@ -1,6 +1,6 @@
-import { TUserUpdate } from '../data/userType';
+import { IUserInput } from '../db/models/User';
 
-export const validateUserRegistrationPayload = (payload: TUserUpdate) =>
+export const validateUserRegistrationPayload = (payload: IUserInput) =>
     (payload.era_commons_id ||
         payload.nih_ned_id ||
         (payload.external_individual_fullname && payload.external_individual_email)) &&

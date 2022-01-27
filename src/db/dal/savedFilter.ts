@@ -23,9 +23,9 @@ export const getSavedFilterById = async (keycloak_id: string, id: string): Promi
     return filter;
 };
 
-export const getAllSavedFilters = async (keycloak_id: string): Promise<ISavedFilterOutput[]> => {
+export const getAllSavedFilters = async (keycloak_id: string, tag?: string): Promise<ISavedFilterOutput[]> => {
     const filters = await SavedFilterModel.findAll({
-        where: { keycloak_id },
+        where: tag ? { [Op.and]: [{ keycloak_id }, { tag }] } : { keycloak_id },
     });
     return filters;
 };

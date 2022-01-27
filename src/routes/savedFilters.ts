@@ -31,6 +31,16 @@ savedFiltersRouter.get('/', async (req, res, next) => {
     }
 });
 
+savedFiltersRouter.get('/tag/:tagid', async (req, res, next) => {
+    try {
+        const keycloak_id = req['kauth']?.grant?.access_token?.content?.sub;
+        const result = await getAllSavedFilters(keycloak_id, req.params.tagid);
+        res.status(StatusCodes.OK).send(result);
+    } catch (e) {
+        next(e);
+    }
+});
+
 savedFiltersRouter.post('/', async (req, res, next) => {
     try {
         const keycloak_id = req['kauth']?.grant?.access_token?.content?.sub;

@@ -1,7 +1,7 @@
 -- Up Migration
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE saved_filters (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
     keycloak_id VARCHAR(255) NOT NULL,
     title TEXT,
     tag TEXT,

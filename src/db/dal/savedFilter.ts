@@ -33,9 +33,8 @@ export const createSavedFilter = async (
     keycloak_id: string,
     payload: ISavedFilterInput,
 ): Promise<ISavedFilterOutput> => {
-    const { id, ...rest } = payload;
     const filter = await SavedFilterModel.create({
-        ...rest,
+        ...payload,
         keycloak_id,
     });
     return filter;

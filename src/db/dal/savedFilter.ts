@@ -8,7 +8,7 @@ const sanitizeInputPayload = (payload: ISavedFilterInput) => {
     return rest;
 };
 
-export const getSavedFilterById = async (keycloak_id: string, id: string): Promise<ISavedFilterOutput> => {
+export const getById = async (keycloak_id: string, id: string): Promise<ISavedFilterOutput> => {
     const filter = await SavedFilterModel.findOne({
         where: {
             [Op.and]: [{ keycloak_id }, { id }],
@@ -22,17 +22,14 @@ export const getSavedFilterById = async (keycloak_id: string, id: string): Promi
     return filter;
 };
 
-export const getAllSavedFilters = async (keycloak_id: string, tag?: string): Promise<ISavedFilterOutput[]> => {
+export const getAll = async (keycloak_id: string, tag?: string): Promise<ISavedFilterOutput[]> => {
     const filters = await SavedFilterModel.findAll({
         where: tag ? { [Op.and]: [{ keycloak_id }, { tag }] } : { keycloak_id },
     });
     return filters;
 };
 
-export const createSavedFilter = async (
-    keycloak_id: string,
-    payload: ISavedFilterInput,
-): Promise<ISavedFilterOutput> => {
+export const create = async (keycloak_id: string, payload: ISavedFilterInput): Promise<ISavedFilterOutput> => {
     const filter = await SavedFilterModel.create({
         ...payload,
         keycloak_id,
@@ -40,7 +37,7 @@ export const createSavedFilter = async (
     return filter;
 };
 
-export const updateSavedFilter = async (
+export const update = async (
     keycloak_id: string,
     id: string,
     payload: ISavedFilterInput,
@@ -61,7 +58,39 @@ export const updateSavedFilter = async (
     return results[1][0];
 };
 
-export const deleteSavedFilter = async (keycloak_id: string, id: string): Promise<boolean> => {
+export const updateAsDefault = async (
+    keycloak_id: string,
+    id: string,
+    payload: ISavedFilterInput,
+): Promise<ISavedFilterOutput> => {
+    const { tag } = payload;
+    await SavedFilterModel.update(
+        {
+            favorite: false,
+        },
+        {
+            where: {
+                [Op.and]: [{ keycloak_id }, { tag }],
+            },
+            returning: false,
+        },
+    );
+    const results = await SavedFilterModel.update(
+        {
+            favorite: true,
+        },
+        {
+            where: {
+                [Op.and]: [{ keycloak_id }, { id }],
+            },
+            returning: true,
+        },
+    );
+
+    return results[1][0];
+};
+
+export const destroy = async (keycloak_id: string, id: string): Promise<boolean> => {
     const deletedCount = await SavedFilterModel.destroy({
         where: { [Op.and]: [{ keycloak_id }, { id }] },
     });

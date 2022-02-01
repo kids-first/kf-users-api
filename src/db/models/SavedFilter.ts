@@ -7,6 +7,7 @@ interface ISavedFilterAttributes {
     title: string;
     tag: string;
     queries: any[];
+    favorite: boolean;
     creation_date: Date;
     updated_date: Date;
 }
@@ -22,6 +23,7 @@ class SavedFilterModel extends Model<ISavedFilterAttributes, ISavedFilterInput> 
     public queries!: any[];
     public creation_date!: Date;
     public updated_date!: Date;
+    public favorite!: boolean;
 }
 
 SavedFilterModel.init(
@@ -38,6 +40,11 @@ SavedFilterModel.init(
         },
         title: DataTypes.TEXT,
         tag: DataTypes.TEXT,
+        favorite: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false,
+        },
         queries: {
             type: DataTypes.ARRAY(DataTypes.JSONB),
             allowNull: false,

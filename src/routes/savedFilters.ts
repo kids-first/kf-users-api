@@ -1,11 +1,5 @@
 import { Router } from 'express';
-import {
-    createSavedFilter,
-    deleteSavedFilter,
-    getAllSavedFilters,
-    getSavedFilterById,
-    updateSavedFilter,
-} from '../db/dal/savedFilter';
+import { create, destroy, getAll, getById, update, updateAsDefault } from '../db/dal/savedFilter';
 import { StatusCodes } from 'http-status-codes';
 
 // Handles requests made to /saved-filters
@@ -14,7 +8,7 @@ const savedFiltersRouter = Router();
 savedFiltersRouter.get('/:id', async (req, res, next) => {
     try {
         const keycloak_id = req['kauth']?.grant?.access_token?.content?.sub;
-        const result = await getSavedFilterById(keycloak_id, req.params.id);
+        const result = await getById(keycloak_id, req.params.id);
         res.status(StatusCodes.OK).send(result);
     } catch (e) {
         next(e);
@@ -24,7 +18,7 @@ savedFiltersRouter.get('/:id', async (req, res, next) => {
 savedFiltersRouter.get('/', async (req, res, next) => {
     try {
         const keycloak_id = req['kauth']?.grant?.access_token?.content?.sub;
-        const result = await getAllSavedFilters(keycloak_id);
+        const result = await getAll(keycloak_id);
         res.status(StatusCodes.OK).send(result);
     } catch (e) {
         next(e);
@@ -34,7 +28,7 @@ savedFiltersRouter.get('/', async (req, res, next) => {
 savedFiltersRouter.get('/tag/:tagid', async (req, res, next) => {
     try {
         const keycloak_id = req['kauth']?.grant?.access_token?.content?.sub;
-        const result = await getAllSavedFilters(keycloak_id, req.params.tagid);
+        const result = await getAll(keycloak_id, req.params.tagid);
         res.status(StatusCodes.OK).send(result);
     } catch (e) {
         next(e);
@@ -44,7 +38,7 @@ savedFiltersRouter.get('/tag/:tagid', async (req, res, next) => {
 savedFiltersRouter.post('/', async (req, res, next) => {
     try {
         const keycloak_id = req['kauth']?.grant?.access_token?.content?.sub;
-        const result = await createSavedFilter(keycloak_id, req.body);
+        const result = await create(keycloak_id, req.body);
         res.status(StatusCodes.CREATED).send(result);
     } catch (e) {
         next(e);
@@ -54,7 +48,17 @@ savedFiltersRouter.post('/', async (req, res, next) => {
 savedFiltersRouter.put('/:id', async (req, res, next) => {
     try {
         const keycloak_id = req['kauth']?.grant?.access_token?.content?.sub;
-        const result = await updateSavedFilter(keycloak_id, req.params.id, req.body);
+        const result = await update(keycloak_id, req.params.id, req.body);
+        res.status(StatusCodes.OK).send(result);
+    } catch (e) {
+        next(e);
+    }
+});
+
+savedFiltersRouter.put('/:id/default', async (req, res, next) => {
+    try {
+        const keycloak_id = req['kauth']?.grant?.access_token?.content?.sub;
+        const result = await updateAsDefault(keycloak_id, req.params.id, req.body);
         res.status(StatusCodes.OK).send(result);
     } catch (e) {
         next(e);
@@ -64,7 +68,7 @@ savedFiltersRouter.put('/:id', async (req, res, next) => {
 savedFiltersRouter.delete('/:id', async (req, res, next) => {
     try {
         const keycloak_id = req['kauth']?.grant?.access_token?.content?.sub;
-        const result = await deleteSavedFilter(keycloak_id, req.params.id);
+        const result = await destroy(keycloak_id, req.params.id);
         res.status(StatusCodes.OK).send(req.params.id);
     } catch (e) {
         next(e);

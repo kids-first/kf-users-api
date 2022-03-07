@@ -22,6 +22,22 @@ export const getUserById = async (keycloak_id: string): Promise<IUserOuput> => {
     return user;
 };
 
+export const isUserExists = async (
+    keycloak_id: string,
+): Promise<{
+    exists: boolean;
+}> => {
+    const user = await UserModel.findOne({
+        where: {
+            keycloak_id,
+        },
+    });
+
+    return {
+        exists: !!user,
+    };
+};
+
 export const createUser = async (keycloak_id: string, payload: IUserInput): Promise<IUserOuput> => {
     const newUser = await UserModel.create({
         ...payload,

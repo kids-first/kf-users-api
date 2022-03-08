@@ -19,6 +19,7 @@ interface IUserAttributes {
     consent_date?: Date;
     accepted_terms: boolean;
     understand_disclaimer: boolean;
+    commercial_use_reason?: string;
     completed_registration: boolean;
     config?: any;
 }
@@ -29,6 +30,7 @@ export interface IUserOuput extends IUserAttributes {}
 class UserModel extends Model<IUserAttributes, IUserInput> implements IUserAttributes {
     public id!: number;
     public keycloak_id!: string;
+    public commercial_use_reason!: string;
     public accepted_terms!: boolean;
     public understand_disclaimer!: boolean;
     public completed_registration!: boolean;
@@ -52,6 +54,7 @@ UserModel.init(
         last_name: DataTypes.STRING,
         era_commons_id: DataTypes.STRING,
         nih_ned_id: DataTypes.STRING,
+        commercial_use_reason: DataTypes.STRING,
         external_individual_fullname: DataTypes.TEXT,
         external_individual_email: DataTypes.TEXT,
         roles: DataTypes.ARRAY(DataTypes.TEXT),

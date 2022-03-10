@@ -8,6 +8,19 @@ const sanitizeInputPayload = (payload: IUserInput) => {
     return rest;
 };
 
+export const searchUsers = async (pageSize: number, pageIndex: number) => {
+    const results = await UserModel.findAndCountAll({
+        limit: pageSize,
+        offset: pageIndex * pageSize,
+        order: [['updated_date', 'DESC']],
+    });
+
+    return {
+        users: results.rows,
+        total: results.count,
+    };
+};
+
 export const getUserById = async (keycloak_id: string): Promise<IUserOuput> => {
     const user = await UserModel.findOne({
         where: {

@@ -1,9 +1,21 @@
 import { Router } from 'express';
-import { completeRegistration, createUser, deleteUser, getUserById, updateUser } from '../db/dal/user';
+import { completeRegistration, createUser, deleteUser, getUserById, updateUser, searchUsers } from '../db/dal/user';
 import { StatusCodes } from 'http-status-codes';
 
 // Handles requests made to /users
 const usersRouter = Router();
+
+usersRouter.get('/search', async (req, res, next) => {
+    try {
+        const pageSize = parseInt((req.query.pageSize as string) || '15');
+        const pageIndex = parseInt((req.query.pageIndex as string) || '0');
+
+        const result = await searchUsers(pageSize, pageIndex);
+        res.status(StatusCodes.OK).send(result);
+    } catch (e) {
+        next(e);
+    }
+});
 
 usersRouter.get('/', async (req, res, next) => {
     try {

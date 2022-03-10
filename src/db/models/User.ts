@@ -8,6 +8,7 @@ interface IUserAttributes {
     last_name?: string;
     era_commons_id?: string;
     nih_ned_id?: string;
+    email?: string;
     external_individual_fullname?: string;
     external_individual_email?: string;
     roles?: string[];
@@ -55,6 +56,7 @@ UserModel.init(
         era_commons_id: DataTypes.STRING,
         nih_ned_id: DataTypes.STRING,
         commercial_use_reason: DataTypes.STRING,
+        email: DataTypes.STRING,
         external_individual_fullname: DataTypes.TEXT,
         external_individual_email: DataTypes.TEXT,
         roles: DataTypes.ARRAY(DataTypes.TEXT),

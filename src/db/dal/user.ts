@@ -49,7 +49,7 @@ export const isUserExists = async (
 
     return {
         exists: !!user,
-        completed_registration: user.completed_registration || false,
+        completed_registration: user?.completed_registration || false,
     };
 };
 

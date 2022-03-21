@@ -39,7 +39,6 @@ export const isUserExists = async (
     keycloak_id: string,
 ): Promise<{
     exists: boolean;
-    completed_registration: boolean;
 }> => {
     const user = await UserModel.findOne({
         where: {
@@ -48,8 +47,7 @@ export const isUserExists = async (
     });
 
     return {
-        exists: !!user,
-        completed_registration: user?.completed_registration || false,
+        exists: !!user && (user?.completed_registration || false),
     };
 };
 

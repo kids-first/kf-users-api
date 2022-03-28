@@ -55,6 +55,8 @@ export const createUser = async (keycloak_id: string, payload: IUserInput): Prom
     const newUser = await UserModel.create({
         ...payload,
         keycloak_id: keycloak_id,
+        creation_date: new Date(),
+        updated_date: new Date()
     });
     return newUser;
 };

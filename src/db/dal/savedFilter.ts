@@ -33,6 +33,8 @@ export const create = async (keycloak_id: string, payload: ISavedFilterInput): P
     const filter = await SavedFilterModel.create({
         ...payload,
         keycloak_id,
+        creation_date: new Date(),
+        updated_date: new Date()
     });
     return filter;
 };

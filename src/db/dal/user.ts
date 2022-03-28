@@ -13,6 +13,9 @@ export const searchUsers = async (pageSize: number, pageIndex: number) => {
         limit: pageSize,
         offset: pageIndex * pageSize,
         order: [['updated_date', 'DESC']],
+        where: {
+            completed_registration: true,
+        },
     });
 
     return {
@@ -56,7 +59,7 @@ export const createUser = async (keycloak_id: string, payload: IUserInput): Prom
         ...payload,
         keycloak_id: keycloak_id,
         creation_date: new Date(),
-        updated_date: new Date()
+        updated_date: new Date(),
     });
     return newUser;
 };

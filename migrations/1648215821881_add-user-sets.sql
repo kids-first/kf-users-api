@@ -12,4 +12,4 @@ CREATE TABLE user_sets (
 );
 ALTER TABLE user_sets ADD PRIMARY KEY (id);
 -- Down Migration
-DROP TABLE saved_filters;
+DROP TABLE user_sets;

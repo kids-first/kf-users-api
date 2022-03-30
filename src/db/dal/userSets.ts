@@ -1,4 +1,3 @@
-import { ISavedFilterInput } from '../models/SavedFilter';
 import UserSetModel, { IUserSetsInput, IUserSetsOutput } from '../models/UserSets';
 import { Op } from 'sequelize';
 import createHttpError from 'http-errors';
@@ -54,8 +53,6 @@ export const update = async (keycloak_id: string, id: string, payload: IUserSets
 };
 
 export const destroy = async (keycloak_id: string, id: string): Promise<boolean> => {
-    console.log(keycloak_id, 'keycloak_id')
-    console.log(id, 'id')
     const deletedCount = await UserSetModel.destroy({
         where: { [Op.and]: [{ keycloak_id }, { id }] },
     });

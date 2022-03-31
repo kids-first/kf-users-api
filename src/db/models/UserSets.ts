@@ -7,7 +7,8 @@ interface IUserSetAttributes {
     tag: string;
     set_type: string;
     path: string;
-    sort: any[];
+    ids: string[];
+    size: number;
     sqon: any;
     creation_date: Date;
     updated_date: Date;
@@ -22,7 +23,8 @@ class UserSetModel extends Model<IUserSetAttributes, IUserSetsInput> implements 
     public tag!: string;
     public set_type!: string;
     public path!: string;
-    public sort!: any[];
+    public ids!: string[];
+    public size!: number;
     public sqon!: any;
     public creation_date!: Date;
     public updated_date!: Date;
@@ -43,11 +45,12 @@ UserSetModel.init(
         tag: DataTypes.TEXT,
         set_type: DataTypes.TEXT,
         path: DataTypes.TEXT,
-        sort: {
-            type: DataTypes.ARRAY(DataTypes.JSONB),
+        ids: {
+            type: DataTypes.ARRAY(DataTypes.TEXT),
             allowNull: false,
             defaultValue: [],
         },
+        size: DataTypes.NUMBER,
         sqon: {
             type: DataTypes.JSONB,
             allowNull: false,

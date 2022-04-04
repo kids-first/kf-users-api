@@ -105,10 +105,3 @@ export const completeRegistration = async (keycloak_id: string, payload: IUserIn
 
     return results[1][0];
 };
-
-export const deleteUser = async (keycloak_id: string): Promise<boolean> => {
-    const deletedCount = await UserModel.destroy({
-        where: { keycloak_id },
-    });
-    return !!deletedCount;
-};

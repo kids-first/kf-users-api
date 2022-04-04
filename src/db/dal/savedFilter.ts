@@ -11,7 +11,7 @@ const sanitizeInputPayload = (payload: ISavedFilterInput) => {
 export const getById = async (keycloak_id: string, id: string): Promise<ISavedFilterOutput> => {
     const filter = await SavedFilterModel.findOne({
         where: {
-            [Op.and]: [{ keycloak_id }, { id }],
+            id,
         },
     });
 
@@ -34,7 +34,7 @@ export const create = async (keycloak_id: string, payload: ISavedFilterInput): P
         ...payload,
         keycloak_id,
         creation_date: new Date(),
-        updated_date: new Date()
+        updated_date: new Date(),
     });
     return filter;
 };

@@ -8,7 +8,7 @@ const sanitizeInputPayload = (payload: ISavedFilterInput) => {
     return rest;
 };
 
-export const getById = async (keycloak_id: string, id: string): Promise<ISavedFilterOutput> => {
+export const getById = async (id: string): Promise<ISavedFilterOutput> => {
     const filter = await SavedFilterModel.findOne({
         where: {
             id,

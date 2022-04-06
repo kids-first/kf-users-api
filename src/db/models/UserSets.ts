@@ -4,12 +4,9 @@ import sequelizeConnection from '../config';
 interface IUserSetAttributes {
     id: number;
     keycloak_id: string;
-    tag: string;
-    set_type: string;
-    path: string;
-    ids: string[];
-    size: number;
-    sqon: any;
+    content: any;
+    alias: string;
+    sharedpublicly: boolean;
     creation_date: Date;
     updated_date: Date;
 }
@@ -20,12 +17,9 @@ export interface IUserSetsOutput extends IUserSetAttributes {}
 class UserSetModel extends Model<IUserSetAttributes, IUserSetsInput> implements IUserSetAttributes {
     public id!: number;
     public keycloak_id!: string;
-    public tag!: string;
-    public set_type!: string;
-    public path!: string;
-    public ids!: string[];
-    public size!: number;
-    public sqon!: any;
+    public content!: any;
+    public alias!: string;
+    public sharedpublicly!: boolean;
     public creation_date!: Date;
     public updated_date!: Date;
 }
@@ -42,16 +36,16 @@ UserSetModel.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        tag: DataTypes.TEXT,
-        set_type: DataTypes.TEXT,
-        path: DataTypes.TEXT,
-        ids: {
-            type: DataTypes.ARRAY(DataTypes.TEXT),
+        alias: {
+            type: DataTypes.STRING,
             allowNull: false,
-            defaultValue: [],
         },
-        size: DataTypes.NUMBER,
-        sqon: {
+        sharedpublicly: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false,
+        },
+        content: {
             type: DataTypes.JSONB,
             allowNull: false,
             defaultValue: {},

@@ -4,7 +4,7 @@ import request from 'supertest';
 
 import { getToken, publicKey } from '../test/authTestUtils';
 import buildApp from './app';
-import { createUser, deleteUser, getUserById, updateUser } from './db/dal/user';
+import { createUser, getUserById, updateUser } from './db/dal/user';
 import { IUserInput } from './db/models/User';
 
 jest.mock('./db/dal/user');
@@ -251,51 +251,6 @@ describe('Express app', () => {
             expect((updateUser as jest.Mock).mock.calls[0][1]['understand_disclaimer']).toEqual(
                 putUserBody.understand_disclaimer,
             );
-        });
-    });
-
-    describe('DELETE /user', () => {
-        beforeEach(() => {
-            (deleteUser as jest.Mock).mockReset();
-        });
-
-        it('should return 403 if no Authorization header', async () => request(app).delete('/user').expect(403));
-
-        it('should return 403 if Authorization header contain expired token', async () => {
-            const token = getToken(-1000);
-            await request(app)
-                .delete('/user')
-                .set({ Authorization: `Bearer ${token}` })
-                .expect(403);
-        });
-
-        it('should return 500 if Authorization header is valid but an error occurs', async () => {
-            const expectedError = new Error('OOPS');
-            (deleteUser as jest.Mock).mockImplementation(() => {
-                throw expectedError;
-            });
-
-            const token = getToken(1000, 'keycloak_id');
-            await request(app)
-                .delete('/user')
-                .set({ Authorization: `Bearer ${token}` })
-                .expect(500, { error: 'Internal Server Error' });
-            expect((deleteUser as jest.Mock).mock.calls.length).toEqual(1);
-            expect((deleteUser as jest.Mock).mock.calls[0][0]).toEqual('keycloak_id');
-        });
-
-        it('should return 200 with the user id if Authorization header is valid', async () => {
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-            (deleteUser as jest.Mock).mockImplementation(() => {});
-
-            const token = getToken(1000, 'keycloak_id');
-            await request(app)
-                .delete('/user')
-                .set({ Authorization: `Bearer ${token}` })
-                .expect(200, 'keycloak_id');
-
-            expect((deleteUser as jest.Mock).mock.calls.length).toEqual(1);
-            expect((deleteUser as jest.Mock).mock.calls[0][0]).toEqual('keycloak_id');
         });
     });
 });

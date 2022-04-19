@@ -32,6 +32,8 @@ export const create = async (keycloak_id: string, payload: IUserSetsInput): Prom
     return await UserSetModel.create({
         ...payload,
         keycloak_id,
+        creation_date: new Date(),
+        updated_date: new Date(),
     });
 };
 

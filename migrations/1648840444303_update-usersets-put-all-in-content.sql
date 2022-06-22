@@ -14,4 +14,4 @@ ALTER TABLE user_sets
 ALTER TABLE user_sets
     DROP COLUMN content,
     DROP COLUMN alias,
-    DROP COLUMN sharedPublicly,
+    DROP COLUMN sharedPublicly

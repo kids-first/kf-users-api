@@ -13,4 +13,6 @@ COPY --from=build-image ./app/dist ./dist
 COPY package* ./
 COPY migrations ./migrations
 RUN npm ci --production
-CMD [ "npm", "run", "start:prd" ]
+# Debugging pg connection issue
+# CMD [ "npm", "run", "start:prd" ]
+CMD [ "tail", "-f", "/dev/null" ]

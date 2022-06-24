@@ -12,6 +12,14 @@ const sequelizeConnection = new Sequelize(dbName, dbUser, dbPassword, {
         idle: 10000,
     },
     dialect: 'postgres',
+    dialectOptions:
+        process.env.NODE_ENV === 'production'
+            ? {
+                  ssl: {
+                      rejectUnauthorized: false,
+                  },
+              }
+            : {},
     logging: process.env.NODE_ENV === 'development',
 });
 

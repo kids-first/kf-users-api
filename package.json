@@ -17,7 +17,7 @@
         "migrate": "node-pg-migrate",
         "dev": "nodemon",
         "start": "ts-node ./src/index.ts",
-        "start:prd": "npm run migrate up; node ./dist/src/index.js",
+        "start:prd": "npm run migrate up --reject-unauthorized=0; node ./dist/src/index.js",
         "test": "jest --silent"
     },
     "dependencies": {

@@ -1,3 +1,11 @@
+<p align="center">
+  <img src="docs/portal.svg" alt="Kids First Portal" width="660px">
+</p>
+
+<p align="center">
+  <a href="https://github.com/kids-first/users-api/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/kids-first/kf-portal-ui.svg?style=for-the-badge"></a>
+</p>
+
 # :busts_in_silhouette: Users API
 This project allows to persist users preferences, queries and such.
 

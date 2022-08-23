@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="docs/portal.svg" alt="Kids First Portal" width="660px">
-</p>
-
 # :busts_in_silhouette: Users API
 This project allows to persist users preferences, queries and such.
 

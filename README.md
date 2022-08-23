@@ -1,39 +1,51 @@
-# Users API
+<p align="center">
+  <img src="docs/portal.svg" alt="Kids First Portal" width="660px">
+</p>
 
-## Pre-requisites
+# :busts_in_silhouette: Users API
+This project allows to persist users preferences, queries and such.
 
-- Node 16+
+## :nut_and_bolt: Development
+This service needs to communicate to a PostgreSQL database. You can either communicate with a remote database or spin up one locally.
+Best practices suggest to use docker && docker-compose. 
+
+### :mortar_board: Pre-requisites
+- Node 16+ (if using local node interpreter)
 - Docker
 
-## Get Started
+### :runner: Run whole project
+First, you need to have an `.env` file. With, minimally:
+- `KEYCLOAK_URL`
+- `KEYCLOAK_REALM`
+- `KEYCLOAK_CLIENT`
+- `PGHOST`
+- `PGPORT`
+- `PGDATABASE`
+- `PGUSER`
+- `PGPASSWORD`
 
-- Install: `npm install`
+Then, 
+```
+# In a terminal (at the root of the project)
+docker-compose up # Spins up the database 
+# In another terminal
+docker run --rm -it --network users-api_default -p "1212:1212" -v $PWD:/code --workdir /app node:16.13-alpine sh
+npm install # if needed
+npm run migrate up # if needed
+npm run dev
+```
+Please note that you may need to tweak some parameters in the above commands according to your setup.
+### :hammer: Run tests
+```
+docker run --rm -it --network users-api_default -p "1212:1212" -v $PWD:/code --workdir /app node:16.13-alpine sh
+npm run test
+```
 
-- Build: `npm run build`
+### :wrench: Update database schema
 
-### Run tests
-
-- Run tests: `npm run test`
-
-### Run API localy
-
-- Run docker compose to start a PostgreSQL Database: `docker compose up`
-
-- Fill .env file according to .env.example
-
-- Run DB migration: `npm run migrate up`
-
-- Start server: `npm run dev`
-
-- Any changes to the api will automatically refresh it.
-
-## Need to update database schema
-
-- Run `npm run migrate create <describe what you want to change>`, example: `npm run migrate create add users email column`
-
+- Run `npm run migrate create <describe what you want to change>`, for example: `npm run migrate create add users email column`
 - It creates a file `XXX_add-users-email-column.sql` in migrations directory
-
-- Open it and add your changes inside `-- Up Migration`, also add how to rollback these changes inside `-- Down Migration`
+- Open it up and add your changes inside `-- Up Migration` directive and also add how to roll back these changes inside the `-- Down Migration` directive.
 
 Example: 
 ```
@@ -45,7 +57,5 @@ ALTER TABLE users DROP COLUMN email;
 ```
 
 - Run `npm run migrate up`, it will apply your last changes.
-
-- Need to rollback ? Run `npm run migrate down`, it will rollback your last changes based on what you defined inside `-- Down Migration`.
-
-- To rollback more than 1 migration, run `npm run migrate down {N}` where N is the number of migrations to rollback.
+- You need to rollback? Run `npm run migrate down`, it will roll back your last changes based on what you defined inside `-- Down Migration`.
+- To rollback more than 1 migration, run `npm run migrate down {N}` where `N` is the number of migrations to rollback.

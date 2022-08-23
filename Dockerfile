@@ -2,9 +2,7 @@
 FROM node:16.14.2-alpine AS build-image
 WORKDIR /app
 COPY . .
-RUN npm ci
-RUN npm run build
-RUN npm test
+RUN npm ci && npm run build && npm run test
 
 # Second image, that creates an image for production
 FROM node:16.14.2-alpine AS prod-image

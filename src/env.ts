@@ -8,8 +8,8 @@ export const keycloakURL = process.env.KEYCLOAK_URL;
 export const keycloakRealm = process.env.KEYCLOAK_REALM;
 export const keycloakClient = process.env.KEYCLOAK_CLIENT;
 
-export const dbHost = process.env.DATABASE_HOST || process.env.PGHOST;
-export const dbPort: number = Number.parseInt(process.env.DATABASE_PORT || process.env.PGPORT);
-export const dbName = process.env.DATABASE_NAME || process.env.PGDATABASE;
-export const dbUser = process.env.DATABASE_USER || process.env.PGUSER;
-export const dbPassword = process.env.DATABASE_PASSWORD || process.env.PGPASSWORD;
+export const dbHost = process.env.PGHOST;
+export const dbPort: number = Number.parseInt(process.env.PGPORT);
+export const dbName = process.env.PGDATABASE;
+export const dbUser = process.env.PGUSER;
+export const dbPassword = process.env.PGPASSWORD;

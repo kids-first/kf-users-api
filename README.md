@@ -31,9 +31,9 @@ First, you need to have an `.env` file. With, minimally:
 Then, 
 ```
 # In a terminal (at the root of the project)
-docker-compose up # Spins up the database 
+docker-compose up OR docker compose up # Spins up the database 
 # In another terminal
-docker run --rm -it --network users-api_default -p "1212:1212" -v $PWD:/code --workdir /app node:16.13-alpine sh
+docker run --rm -it --network users-api_default -p "1212:1212" -v $PWD:/app --workdir /app node:16.13-alpine sh
 npm install # if needed
 npm run migrate up # if needed
 npm run dev
@@ -41,7 +41,7 @@ npm run dev
 Please note that you may need to tweak some parameters in the above commands according to your setup.
 ### :hammer: Run tests
 ```
-docker run --rm -it --network users-api_default -p "1212:1212" -v $PWD:/code --workdir /app node:16.13-alpine sh
+docker run --rm -it --network users-api_default -p "1212:1212" -v $PWD:/app --workdir /app node:16.13-alpine sh
 npm run test
 ```
 
@@ -63,3 +63,34 @@ ALTER TABLE users DROP COLUMN email;
 - Run `npm run migrate up`, it will apply your last changes.
 - You need to rollback? Run `npm run migrate down`, it will roll back your last changes based on what you defined inside `-- Down Migration`.
 - To rollback more than 1 migration, run `npm run migrate down {N}` where `N` is the number of migrations to rollback.
+
+### :eyes: Access Postgres cli locally
+Assuming that the postgres container is running and that you know its ID
+```
+docker exec -it <CONTAINER_ID> bash
+
+# In the bash terminal run
+psql postgres://<POSTGRES_USER>:<POSTGRES_PASSWORD>@<HOST>:<PORT>
+
+# For example:
+psql postgres://postgres:password@localhost:5432 
+```
+Here are some examples of useful commands
+```
+postgres=# \l
+                                 List of databases
+   Name    |  Owner   | Encoding |  Collate   |   Ctype    |   Access privileges   
+-----------+----------+----------+------------+------------+-----------------------
+ postgres  | postgres | UTF8     | en_US.utf8 | en_US.utf8 | 
+ template0 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+           |          |          |            |            | postgres=CTc/postgres
+ template1 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+           |          |          |            |            | postgres=CTc/postgres
+ users     | postgres | UTF8     | en_US.utf8 | en_US.utf8 | 
+(4 rows)
+postgres=# \c users
+You are now connected to database "users" as user "postgres".
+users=# \dt
+Did not find any relations.
+users=# \q
+```

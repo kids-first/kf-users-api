@@ -6,7 +6,7 @@ This service needs to communicate to a PostgreSQL database. You can either commu
 Best practices suggest to use docker && docker-compose. 
 
 ### :mortar_board: Pre-requisites
-- Node 16+ (if using local node interpreter)
+- Node 18+ (if using local node interpreter)
 - Docker
 
 ### :runner: Run whole project
@@ -33,10 +33,10 @@ npm run dev
 Please note that you may need to tweak some parameters in the above commands according to your setup.
 ### :hammer: Run tests
 ```
-docker run --rm -it --network users-api_default -p "1212:1212" -v $PWD:/code --workdir /app node:16.13-alpine sh
+docker run --rm -it --network users-api_default -p "1212:1212" -u node -v $PWD:/code --workdir /app node:16.13-alpine sh
 npm run test
 ```
-
+:warning: If you want to use `nodemon` make sure that you do not run your container as root (you could use `-u node`)
 ### :wrench: Update database schema
 
 - Run `npm run migrate create <describe what you want to change>`, for example: `npm run migrate create add users email column`

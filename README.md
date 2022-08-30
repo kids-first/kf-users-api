@@ -41,7 +41,7 @@ npm run dev
 Please note that you may need to tweak some parameters in the above commands according to your setup.
 ### :hammer: Run tests
 ```
-docker run --rm -it --network users-api_default -p "1212:1212" -u node -v $PWD:/code --workdir /app node:16.13-alpine sh
+docker run --rm -it --network users-api_default -p "1212:1212" -u node -v $PWD:/code --workdir /app node:18.8-alpine3.15 sh
 npm run test
 ```
 :warning: If you want to use `nodemon` make sure that you do not run your container as root (you could use `-u node`)

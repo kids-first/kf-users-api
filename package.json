@@ -17,7 +17,7 @@
         "migrate": "NODE_TLS_REJECT_UNAUTHORIZED=0 node-pg-migrate",
         "dev": "nodemon",
         "start": "ts-node ./src/index.ts",
-        "start:prd": "npm run migrate up && node ./dist/src/index.js",
+        "start:prd": "node migrateUpWithWrapper.mjs && node ./dist/src/index.js",
         "test": "jest --silent"
     },
     "dependencies": {

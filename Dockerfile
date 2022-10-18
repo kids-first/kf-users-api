@@ -10,6 +10,7 @@ WORKDIR /app
 COPY --from=build-image ./app/dist ./dist
 COPY package* ./
 COPY migrations ./migrations
-RUN npm ci --production
+COPY migrateUpWithWrapper.mjs ./migrateUpWithWrapper.mjs
+RUN npm ci --omit=dev
 ENV NODE_ENV=production
 CMD [ "npm", "run", "start:prd" ]

@@ -1,6 +1,18 @@
 version: '3.9'
 
 services:
+  app: 
+    build: .
+    depends_on: 
+      - db
+    ports:
+      - "1212:1212"
+    environment:
+      PGUSER: postgres
+      PGPASSWORD: password 
+      PGPORT: 5432
+      PGHOST: db 
+      PGDATABASE: users
   db:
     image: postgres
     restart: always

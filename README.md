@@ -1,11 +1,3 @@
-<p align="center">
-  <img src="docs/portal.svg" alt="Kids First Portal" width="660px">
-</p>
-
-<p align="center">
-  <a href="https://github.com/kids-first/users-api/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/kids-first/kf-portal-ui.svg?style=for-the-badge"></a>
-</p>
-
 # :busts_in_silhouette: Users API
 This project allows to persist users preferences, queries and such.
 
@@ -41,7 +33,7 @@ npm run dev
 Please note that you may need to tweak some parameters in the above commands according to your setup.
 ### :hammer: Run tests
 ```
-docker run --rm -it --network users-api_default -p "1212:1212" -u node -v $PWD:/code --workdir /app node:18.8-alpine3.15 sh
+docker run --rm -it --network users-api_default -p "1212:1212" -u node -v $PWD:/app --workdir /app node:18.8-alpine3.15 sh
 npm run test
 ```
 :warning: If you want to use `nodemon` make sure that you do not run your container as root (you could use `-u node`)
